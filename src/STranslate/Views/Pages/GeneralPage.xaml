@@ -369,7 +369,7 @@
                                 DisplayMemberPath="Source"
                                 FontFamily="Microsoft YaHei UI"
                                 ItemsSource="{Binding Source={StaticResource SortedFonts}}"
-                                SelectedValue="{Binding Settings.AppFont, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedValue="{Binding Settings.FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedValuePath="Source" />
                         </ikw:SimpleStackPanel>
                     </ui:SettingsCard>
@@ -387,7 +387,7 @@
                                 Minimum="10"
                                 TickFrequency="1"
                                 TickPlacement="Both"
-                                Value="{Binding Settings.TextFontSize}" />
+                                Value="{Binding Settings.FontSize}" />
                             <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=PART_FontSize, Path=Value, StringFormat={}{0}}" />
                         </ikw:SimpleStackPanel>
                     </ui:SettingsCard>

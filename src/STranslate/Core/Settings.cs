@@ -19,7 +19,13 @@ public partial class Settings : ObservableObject
     [ObservableProperty] public partial bool AutoStartup { get; set; } = false;
     [ObservableProperty] public partial StartMode StartMode { get; set; } = StartMode.Normal;
 
-    [ObservableProperty] public partial string AppFont { get; set; } = Win32Helper.GetSystemDefaultFont();
+    [ObservableProperty] public partial string FontFamily { get; set; } = Win32Helper.GetSystemDefaultFont();
+
+    /// <summary>
+    /// 界面字体大小
+    ///     * MenuItem Icon & TextBlock 除外
+    /// </summary>
+    [ObservableProperty] public partial double FontSize { get; set; } = 14;
 
     [ObservableProperty] public partial string Language { get; set; } = Constant.SystemLanguageCode;
 
@@ -95,11 +101,6 @@ public partial class Settings : ObservableObject
         }
     }
     [ObservableProperty] public partial double MainWindowMaxHeight { get; set; } = 800;
-
-    /// <summary>
-    /// 输入输出框字体大小
-    /// </summary>
-    [ObservableProperty] public partial double TextFontSize { get; set; } = 14;
 
     /// <summary>
     /// 主界面Llm服务是否显示提示词按钮
@@ -286,9 +287,9 @@ public partial class Settings : ObservableObject
 
     public void LazyInitialize()
     {
-        ApplyAppFont(true);
+        ApplyFontFamily(true);
         ApplyLanguage(true);
-        ApplyAppFontSize();
+        ApplyFontSize();
         ApplyTheme();
         ApplyDeactived();
     }
@@ -338,41 +339,41 @@ public partial class Settings : ObservableObject
             i18n.ChangeLanguage(Language);
     }
 
-    private void ApplyAppFont(bool initialize = false)
+    private void ApplyFontFamily(bool initialize = false)
     {
         // 初始化时检查字体有效性
-        if (initialize && !Fonts.SystemFontFamilies.Select(x => x.Source).Contains(AppFont))
+        if (initialize && !Fonts.SystemFontFamilies.Select(x => x.Source).Contains(FontFamily))
         {
-            AppFont = Win32Helper.GetSystemDefaultFont();
+            FontFamily = Win32Helper.GetSystemDefaultFont();
             return;
         }
 
-        App.Current.Resources["ContentControlThemeFontFamily"] = new FontFamily(AppFont);
+        App.Current.Resources["ContentControlThemeFontFamily"] = new FontFamily(FontFamily);
 
         // TODO: https://github.com/iNKORE-NET/UI.WPF.Modern/blob/main/source/iNKORE.UI.WPF.Modern/Themes/Controls/TextStyles.xaml#L13
         // 这句写的有问题  更新后避免更新系统字体键以避免带来其他问题
-        App.Current.Resources[System.Windows.SystemFonts.MessageFontFamilyKey] = new FontFamily(AppFont);
+        App.Current.Resources[System.Windows.SystemFonts.MessageFontFamilyKey] = new FontFamily(FontFamily);
     }
 
-    private void ApplyAppFontSize()
+    private void ApplyFontSize()
     {
         // original
-        App.Current.Resources["ControlContentThemeFontSize"] = TextFontSize;    //14
-        App.Current.Resources["CaptionTextBlockFontSize"] = TextFontSize - 2;   //12
-        App.Current.Resources["SubtitleTextBlockFontSize"] = TextFontSize + 6;  //20
+        App.Current.Resources["ControlContentThemeFontSize"] = FontSize;    //14
+        App.Current.Resources["CaptionTextBlockFontSize"] = FontSize - 2;   //12
+        App.Current.Resources["SubtitleTextBlockFontSize"] = FontSize + 6;  //20
 
         // custom for stranslate
-        App.Current.Resources["STControlFontSize8"] = TextFontSize - 6;
-        App.Current.Resources["STControlFontSize9"] = TextFontSize - 5;
-        App.Current.Resources["STControlFontSize10"] = TextFontSize - 4;
-        App.Current.Resources["STControlFontSize11"] = TextFontSize - 3;
-        App.Current.Resources["STControlFontSize12"] = TextFontSize - 2;
-        App.Current.Resources["STControlFontSize13"] = TextFontSize - 1;
-        App.Current.Resources["STControlFontSize14"] = TextFontSize;
-        App.Current.Resources["STControlFontSize15"] = TextFontSize + 1;
-        App.Current.Resources["STControlFontSize16"] = TextFontSize + 2;
-        App.Current.Resources["STControlFontSize17"] = TextFontSize + 3;
-        App.Current.Resources["STControlFontSize18"] = TextFontSize + 4;
+        App.Current.Resources["STControlFontSize8"] = FontSize - 6;
+        App.Current.Resources["STControlFontSize9"] = FontSize - 5;
+        App.Current.Resources["STControlFontSize10"] = FontSize - 4;
+        App.Current.Resources["STControlFontSize11"] = FontSize - 3;
+        App.Current.Resources["STControlFontSize12"] = FontSize - 2;
+        App.Current.Resources["STControlFontSize13"] = FontSize - 1;
+        App.Current.Resources["STControlFontSize14"] = FontSize;
+        App.Current.Resources["STControlFontSize15"] = FontSize + 1;
+        App.Current.Resources["STControlFontSize16"] = FontSize + 2;
+        App.Current.Resources["STControlFontSize17"] = FontSize + 3;
+        App.Current.Resources["STControlFontSize18"] = FontSize + 4;
     }
 
     private void ApplyTheme()
@@ -426,11 +427,11 @@ public partial class Settings : ObservableObject
             case nameof(Language):
                 ApplyLanguage();
                 break;
-            case nameof(AppFont):
-                ApplyAppFont();
+            case nameof(FontFamily):
+                ApplyFontFamily();
                 break;
-            case nameof(TextFontSize):
-                ApplyAppFontSize();
+            case nameof(FontSize):
+                ApplyFontSize();
                 break;
             case nameof(ColorScheme):
                 ApplyTheme();
