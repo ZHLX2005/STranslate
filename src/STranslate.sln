@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36327.8
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STranslate", "STranslate\STranslate.csproj", "{D04344F5-B338-4481-BEA0-279B846750BE}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STranslate.Plugin.Ocr.WeChatBuiltIn", "Plugins\STranslate.Plugin.Ocr.WeChatBuiltIn\STranslate.Plugin.Ocr.WeChatBuiltIn.csproj", "{C71E0D4E-60E1-444E-9997-6113266B9B83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STranslate.Plugin.Vocabulary.Eudict", "Plugins\STranslate.Plugin.Vocabulary.Eudict\STranslate.Plugin.Vocabulary.Eudict.csproj", "{2DF27A1E-C3BC-4453-AB63-890BE15963D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdPlugins", "ThirdPlugins", "{334F65F9-A5DC-459F-A09D-D13019C582EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,7 @@ Global
 		{13206580-A1C7-495F-A1FF-5157FE1FC441} = {5AB03004-BE0C-4B0A-9458-55324D128FD9}
 		{C71E0D4E-60E1-444E-9997-6113266B9B83} = {5AB03004-BE0C-4B0A-9458-55324D128FD9}
 		{2DF27A1E-C3BC-4453-AB63-890BE15963D5} = {5AB03004-BE0C-4B0A-9458-55324D128FD9}
+		{334F65F9-A5DC-459F-A09D-D13019C582EC} = {5AB03004-BE0C-4B0A-9458-55324D128FD9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA398D62-3653-428C-AC2F-10281C6D435C}
