@@ -463,6 +463,23 @@ public class HistoryModel
         }
     }
 
+    internal bool HasData(Service svc)
+    {
+        if (svc.Plugin is ITranslatePlugin tPlugin)
+            return Data.Any(d =>
+                d.PluginID == svc.MetaData.PluginID &&
+                d.ServiceID == svc.ServiceID &&
+                !string.IsNullOrWhiteSpace(d.Text) &&
+                (!tPlugin.AutoTransBack || !string.IsNullOrWhiteSpace(d.BackText))
+            );
+        else
+            return Data.Any(d =>
+                d.PluginID == svc.MetaData.PluginID &&
+                d.ServiceID == svc.ServiceID &&
+                !string.IsNullOrWhiteSpace(d.Text)
+            );
+    }
+
     internal HistoryData? GetData(Service svc) =>
         Data.FirstOrDefault(d => d.PluginID == svc.MetaData.PluginID && d.ServiceID == svc.ServiceID);
 

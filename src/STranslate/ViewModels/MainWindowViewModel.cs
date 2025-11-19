@@ -200,7 +200,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                         //tPlugin.TransResult.Duration = result.Duration;
 
                         // transBack
-                        if (tPlugin.AutoTransBack && JsonSerializer.Deserialize<TranslateResult>(data.BackText, HistoryModel.JsonOption) is TranslateResult result1)
+                        if (tPlugin.AutoTransBack &&
+                            !string.IsNullOrWhiteSpace(data.BackText) &&
+                            JsonSerializer.Deserialize<TranslateResult>(data.BackText, HistoryModel.JsonOption) is TranslateResult result1)
                         {
                             tPlugin.TransBackResult.Text = result1.Text;
                             tPlugin.TransBackResult.IsSuccess = result1.IsSuccess;
@@ -234,7 +236,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
                 foreach (var svc in enabledSvcs)
                 {
-                    if (history.GetData(svc) == null)
+                    if (!history.HasData(svc))
                     {
                         allServicesCached = false;
                         break;
