@@ -48,6 +48,35 @@
                                 Icon="{x:Static ui:FluentSystemIcons.Copy_20_Regular}" />
                         </ikw:SimpleStackPanel>
                     </Grid>
+                    <ikw:SimpleStackPanel
+                        x:Name="PART_TransBackPanel"
+                        Spacing="3"
+                        Visibility="{Binding TransBackResult, Converter={cnvt:EqualToVisibilityInverseConverter}}">
+                        <Separator Background="{StaticResource {x:Static ui:ThemeKeys.ContentDialogSeparatorBorderBrushKey}}" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox
+                                Background="Transparent"
+                                BorderBrush="{x:Null}"
+                                BorderThickness="0"
+                                IsReadOnly="True"
+                                Text="{Binding TransBackResult.Text}"
+                                TextWrapping="Wrap" />
+                            <ikw:SimpleStackPanel
+                                Grid.Row="1"
+                                Margin="6,2"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <control:IconButton
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.CopyCommand}"
+                                    CommandParameter="{Binding TransBackResult.Text}"
+                                    Icon="{x:Static ui:FluentSystemIcons.Copy_20_Regular}" />
+                            </ikw:SimpleStackPanel>
+                        </Grid>
+                    </ikw:SimpleStackPanel>
                 </ikw:SimpleStackPanel>
             </Border>
         </DataTemplate>
