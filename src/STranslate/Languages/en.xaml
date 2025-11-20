@@ -11,12 +11,13 @@
 
     <!--  // Navigation //  -->
     <sys:String x:Key="General">General</sys:String>
-    <sys:String x:Key="Standalone">Standalone</sys:String>
     <sys:String x:Key="Services">Services</sys:String>
     <sys:String x:Key="Translate">Translate</sys:String>
     <sys:String x:Key="Ocr">Ocr</sys:String>
     <sys:String x:Key="Tts">Tts</sys:String>
     <sys:String x:Key="Vocabulary">Vocabulary</sys:String>
+    <sys:String x:Key="Standalone">Standalone</sys:String>
+    <sys:String x:Key="History">History</sys:String>
     <sys:String x:Key="Plugins">Plugins</sys:String>
     <sys:String x:Key="Hotkeys">Hotkeys</sys:String>
     <sys:String x:Key="Network">Network</sys:String>
@@ -105,6 +106,7 @@
     <sys:String x:Key="Hotkey_ShowHideInputBox">Show/Hide Input Box</sys:String>
     <sys:String x:Key="Hotkey_OpenSettings">Open Settings</sys:String>
     <sys:String x:Key="Hotkey_OpenSettingsDescription">Open settings window when main window is open.</sys:String>
+    <sys:String x:Key="Hotkey_OpenHistory">Open History</sys:String>
     <sys:String x:Key="Hotkey_SaveToVocabulary">Save To Vocabulary</sys:String>
     <sys:String x:Key="Hotkey_OcrWindow">OCR Window Hotkey</sys:String>
     <sys:String x:Key="Hotkey_ReExecuteOcr">Re-execute text recognition</sys:String>

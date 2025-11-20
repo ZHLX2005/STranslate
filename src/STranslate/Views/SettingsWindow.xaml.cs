@@ -51,6 +51,7 @@ public partial class SettingsWindow
             nameof(TtsPage) => Ioc.Default.GetRequiredService<TtsPage>(),
             nameof(VocabularyPage) => Ioc.Default.GetRequiredService<VocabularyPage>(),
             nameof(StandalonePage) => Ioc.Default.GetRequiredService<StandalonePage>(),
+            nameof(HistoryPage) => Ioc.Default.GetRequiredService<HistoryPage>(),
             nameof(PluginPage) => Ioc.Default.GetRequiredService<PluginPage>(),
             nameof(HotkeyPage) => Ioc.Default.GetRequiredService<HotkeyPage>(),
             nameof(NetworkPage) => Ioc.Default.GetRequiredService<NetworkPage>(),
@@ -80,6 +81,9 @@ public partial class SettingsWindow
                 case nameof(StandalonePage):
                     RootNavigation.SelectedItem = RootNavigation.MenuItems[2];
                     break;
+                case nameof(HistoryPage):
+                    RootNavigation.SelectedItem = RootNavigation.MenuItems[3];
+                    break;
                 default:
                     break;
             }
@@ -100,6 +104,10 @@ public partial class SettingsWindow
                 break;
             case StandalonePage page:
                 FocusAndSelectAll(page.PART_AutoSuggestBox);
+                break;
+            case HistoryPage page:
+                page.PART_SearchBox.Focus();
+                page.PART_SearchBox.SelectAll();
                 break;
             case PluginPage page:
                 page.PluginFilterTextbox.Focus();

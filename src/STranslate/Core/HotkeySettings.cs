@@ -31,6 +31,8 @@ public partial class HotkeySettings : ObservableObject
 
     public Hotkey OpenSettingsHotkey { get; set; } = new("Ctrl + OemComma");
 
+    public Hotkey OpenHistoryHotkey { get; set; } = new("Ctrl + OemQuestion");
+
     public Hotkey HideInputHotkey { get; set; } = new("Ctrl + Shift + A");
 
     public Hotkey ToggleColorThemeHotkey { get; set; } = new("Ctrl + Shift + R");
@@ -65,6 +67,7 @@ public partial class HotkeySettings : ObservableObject
 
         // MainWindow
         new RegisteredHotkeyData(OpenSettingsHotkey.Key, "Hotkey_OpenSettings", HotkeyType.MainWindow, () => OpenSettingsHotkey.Key = Constant.EmptyHotkey),
+        new RegisteredHotkeyData(OpenHistoryHotkey.Key, "Hotkey_OpenHistory", HotkeyType.MainWindow, () => OpenHistoryHotkey.Key = Constant.EmptyHotkey),
         new RegisteredHotkeyData(HideInputHotkey.Key, "Hotkey_ShowHideInputBox", HotkeyType.MainWindow, () => HideInputHotkey.Key = Constant.EmptyHotkey),
         new RegisteredHotkeyData(ToggleColorThemeHotkey.Key, "Hotkey_ToggleColorTheme", HotkeyType.MainWindow, () => ToggleColorThemeHotkey.Key = Constant.EmptyHotkey),
         new RegisteredHotkeyData(ToggleTopmostHotkey.Key, "Hotkey_ToggleTopmost", HotkeyType.MainWindow, () => ToggleTopmostHotkey.Key = Constant.EmptyHotkey),
@@ -156,6 +159,7 @@ public partial class HotkeySettings : ObservableObject
             [nameof(OcrHotkey)] = "Alt + Shift + S",
             // Software Hotkeys - MainWindow
             [nameof(OpenSettingsHotkey)] = "Ctrl + OemComma",
+            [nameof(OpenHistoryHotkey)] = "Ctrl + OemQuestion",
             [nameof(HideInputHotkey)] = "Ctrl + Shift + A",
             [nameof(ToggleColorThemeHotkey)] = "Ctrl + Shift + R",
             [nameof(ToggleTopmostHotkey)] = "Ctrl + Shift + T",

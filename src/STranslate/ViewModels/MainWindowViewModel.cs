@@ -972,6 +972,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     }
 
     [RelayCommand]
+    private async Task OpenHistoryAsync()
+    {
+        await OpenSettingsAsync(null);
+        Application.Current.Windows
+                    .OfType<SettingsWindow>()
+                    .First()
+                    .Navigate(nameof(HistoryPage));
+    }
+
+    [RelayCommand]
     private async Task NavigateAsync(Service service)
     {
         await OpenSettingsAsync(string.Empty);

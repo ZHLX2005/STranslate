@@ -135,6 +135,12 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
 
+                <ui:NavigationViewItem Content="{DynamicResource History}" Tag="HistoryPage">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:BitmapIcon ShowAsMonochrome="False" UriSource="/Resources/history.png" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
                 <ui:NavigationViewItem Content="{DynamicResource Plugins}" Tag="PluginPage">
                     <ui:NavigationViewItem.Icon>
                         <ui:BitmapIcon ShowAsMonochrome="False" UriSource="/Resources/plugins.png" />

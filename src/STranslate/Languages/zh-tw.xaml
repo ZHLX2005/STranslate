@@ -11,12 +11,13 @@
 
     <!--  // Navigation //  -->
     <sys:String x:Key="General">常規</sys:String>
-    <sys:String x:Key="Standalone">獨立視窗</sys:String>
     <sys:String x:Key="Services">服務</sys:String>
     <sys:String x:Key="Translate">文本翻譯</sys:String>
     <sys:String x:Key="Ocr">文本識別</sys:String>
     <sys:String x:Key="Tts">語音合成</sys:String>
     <sys:String x:Key="Vocabulary">生詞本</sys:String>
+    <sys:String x:Key="Standalone">獨立視窗</sys:String>
+    <sys:String x:Key="History">歷史</sys:String>
     <sys:String x:Key="Plugins">外掛</sys:String>
     <sys:String x:Key="Hotkeys">熱鍵</sys:String>
     <sys:String x:Key="Network">網絡</sys:String>
@@ -105,6 +106,7 @@
     <sys:String x:Key="Hotkey_ShowHideInputBox">顯示/隱藏輸入框</sys:String>
     <sys:String x:Key="Hotkey_OpenSettings">開啟設定</sys:String>
     <sys:String x:Key="Hotkey_OpenSettingsDescription">主視窗開啟時，按下快速鍵開啟設定視窗。</sys:String>
+    <sys:String x:Key="Hotkey_OpenHistory">開啟歷史記錄</sys:String>
     <sys:String x:Key="Hotkey_SaveToVocabulary">保存到生詞本</sys:String>
     <sys:String x:Key="Hotkey_OcrWindow">OCR視窗快速鍵</sys:String>
     <sys:String x:Key="Hotkey_ReExecuteOcr">重新執行文字辨識</sys:String>

@@ -198,6 +198,15 @@
                                 WindowTitle="{DynamicResource Hotkey_OpenSettings}" />
                         </ui:SettingsCard>
 
+                        <ui:SettingsCard Header="{DynamicResource Hotkey_OpenHistory}">
+                            <control:HotkeyControl
+                                DefaultHotkey="{Binding HotkeySettings.OpenHistoryHotkey.Default}"
+                                Hotkey="{Binding HotkeySettings.OpenHistoryHotkey.Key}"
+                                Type="MainWindow"
+                                ValidateKeyGesture="False"
+                                WindowTitle="{DynamicResource Hotkey_OpenHistory}" />
+                        </ui:SettingsCard>
+
                         <ui:SettingsCard Header="{DynamicResource Hotkey_ToggleTopmost}">
                             <control:HotkeyControl
                                 DefaultHotkey="{Binding HotkeySettings.ToggleTopmostHotkey.Default}"
