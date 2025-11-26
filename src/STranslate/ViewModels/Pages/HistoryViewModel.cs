@@ -85,17 +85,16 @@ public partial class HistoryViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Delete(HistoryModel? historyModel)
+    private async Task DeleteAsync(HistoryModel historyModel)
     {
-        if (historyModel == null)
+        var success = await _sqlService.DeleteDataAsync(historyModel);
+        if (success)
         {
-            _snackbar.ShowWarning($"未选中任何历史记录项");
-            return;
+            App.Current.Dispatcher.Invoke(() => HistoryItems.Remove(historyModel));
+            TotalCount--;
         }
-
-        _sqlService.DeleteData(historyModel);
-
-        App.Current.Dispatcher.Invoke(() => HistoryItems.Remove(historyModel));
+        else
+            _snackbar.ShowError(_i18n.GetTranslation("OperationFailed"));
     }
 
     [RelayCommand]
@@ -128,6 +127,7 @@ public partial class HistoryViewModel : ObservableObject
         finally
         {
             _isLoading = false;
+            LoadMoreCommand.NotifyCanExecuteChanged();
         }
     }
 }
