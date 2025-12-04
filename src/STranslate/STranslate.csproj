@@ -7,6 +7,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
         <Version>2.0.0-beta</Version>
+        <StartupObject>STranslate.App</StartupObject>
         <ApplicationIcon>Resources\app.ico</ApplicationIcon>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -71,9 +72,6 @@
 
     <ItemGroup>
         <ApplicationDefinition Remove="App.xaml" />
-    </ItemGroup>
-
-    <ItemGroup>
         <Page Include="App.xaml" />
     </ItemGroup>
 
@@ -92,6 +90,7 @@
         <PackageReference Include="ObservableCollections" />
         <PackageReference Include="PracticalToolkit.WPF" />
         <PackageReference Include="ScreenGrab" />
+        <PackageReference Include="SemanticVersioning" />
         <PackageReference Include="Serilog.Extensions.Logging" />
         <PackageReference Include="Serilog.Sinks.File" />
 
@@ -106,6 +105,7 @@
         </PackageReference>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
         <PackageReference Include="System.Reflection.MetadataLoadContext" />
+        <PackageReference Include="Velopack" />
         <PackageReference Include="WebDav.Client" />
         <PackageReference Include="WpfMath" />
         <PackageReference Include="XamlFlair.WPF" />

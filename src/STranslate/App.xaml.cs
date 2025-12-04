@@ -9,8 +9,8 @@ using Serilog.Core;
 using Serilog.Events;
 using STranslate.Core;
 using STranslate.Helpers;
-using STranslate.Services;
 using STranslate.Plugin;
+using STranslate.Services;
 using STranslate.ViewModels;
 using STranslate.Views;
 using System.Diagnostics;
@@ -18,6 +18,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using Velopack;
 
 namespace STranslate;
 
@@ -133,6 +134,7 @@ public partial class App : ISingleInstanceApp, INavigation, IDisposable
                     services.AddScopedFromNamespace("STranslate.ViewModels.Pages", Assembly.GetExecutingAssembly());
                     services.AddScopedFromNamespace("STranslate.Views.Pages", Assembly.GetExecutingAssembly());
 
+                    services.AddSingleton<UpdaterService>();
                     services.AddSingleton<ExternalCallService>();
                     services.AddSingleton<SqlService>();
                 })
@@ -308,6 +310,10 @@ public partial class App : ISingleInstanceApp, INavigation, IDisposable
 #endif
             return;
         }
+        VelopackApp
+            .Build()
+            .OnFirstRun(_ => iNKORE.UI.WPF.Modern.Controls.MessageBox.Show("First Run!!!"))
+            .Run();
         application.InitializeComponent();
         application.Run();
     }

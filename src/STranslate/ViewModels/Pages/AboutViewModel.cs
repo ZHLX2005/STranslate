@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using STranslate.Core;
-using STranslate.Plugin;
 using STranslate.Services;
 using System.Diagnostics;
 using System.IO;
@@ -15,7 +14,7 @@ public partial class AboutViewModel(
 {
     public Settings Settings { get; } = settings;
     public DataProvider DataProvider { get; } = dataProvider;
-    [ObservableProperty] public partial string AppVersion { get; set; } = VersionInfo.GetVersion();
+    public string AppVersion => Constant.Version;
 
     #region ICommand
 

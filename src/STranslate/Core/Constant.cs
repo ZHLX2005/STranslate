@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace STranslate.Core;
 
@@ -22,6 +24,12 @@ public class Constant
     public const string NeedUpgrade = "_NeedUpgrade";
     public const string InfoFileName = ".INFO";
     public const string BackupFileName = ".BACKUP";
+
+    public const string Website = "https://stranslate.zggsong.com";
+    public const string SponsorPage = "https://github.com/ZGGSONG/STranslate";
+    public const string GitHub = "https://github.com/ZGGSONG/STranslate";
+    public const string Docs = "https://stranslate.zggsong.com";
+    public static readonly string Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location.NonNull()).ProductVersion.NonNull();
 
     /// <summary>
     ///     用户软件根目录

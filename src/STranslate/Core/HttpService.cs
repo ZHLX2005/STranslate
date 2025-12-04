@@ -58,6 +58,15 @@ public class HttpService : IHttpService
     {
         return await GetAsBytesAsync(Constant.HttpClientName, url, options, cancellationToken);
     }
+    public async Task<Stream> GetAsStreamAsync(string url, CancellationToken cancellationToken = default)
+    {
+        return await GetAsStreamAsync(Constant.HttpClientName, url, null, cancellationToken);
+    }
+
+    public async Task<Stream> GetAsStreamAsync(string url, Options? options = null, CancellationToken cancellationToken = default)
+    {
+        return await GetAsStreamAsync(Constant.HttpClientName, url, options, cancellationToken);
+    }
 
     public async Task<string> GetAsync(string serviceName, string url, Options? options = null, CancellationToken cancellationToken = default)
     {
@@ -107,6 +116,32 @@ public class HttpService : IHttpService
         catch (Exception ex)
         {
             _logger?.LogError(ex, "GET request for bytes failed for URL: {Url}, Service: {ServiceName}", url, serviceName);
+            throw;
+        }
+    }
+
+    public async Task<Stream> GetAsStreamAsync(string serviceName, string url, Options? options = null, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var client = _httpClientFactory.CreateClient(serviceName);
+            ConfigureClientTimeout(client, options?.Timeout);
+
+            var finalUrl = BuildUrlWithQuery(url, options?.QueryParams);
+            var request = new HttpRequestMessage(HttpMethod.Get, finalUrl);
+
+            AddHeaders(request, options?.Headers);
+
+            _logger?.LogTrace("Sending GET stream request to {Url} using service {ServiceName}", finalUrl, serviceName);
+
+            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            await EnsureSuccessStatusCodeAsync(response, cancellationToken);
+
+            return await response.Content.ReadAsStreamAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "GET stream request failed for URL: {Url}, Service: {ServiceName}", url, serviceName);
             throw;
         }
     }

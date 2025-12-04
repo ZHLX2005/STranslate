@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace STranslate.Plugin;
 
 /// <summary>
@@ -106,6 +108,23 @@ public interface IHttpService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<byte[]> GetAsBytesAsync(string url, Options? options = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get请求返回流
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Stream> GetAsStreamAsync(string url, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get请求返回流
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Stream> GetAsStreamAsync(string url, Options? options = null, CancellationToken cancellationToken = default);
 
     // POST 请求  
     /// <summary>
@@ -218,7 +237,17 @@ public interface IHttpService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<byte[]> GetAsBytesAsync(string serviceName, string url, Options? options = null, CancellationToken cancellationToken = default);
-    
+
+    /// <summary>
+    /// Get请求返回流
+    /// </summary>
+    /// <param name="serviceName"></param>
+    /// <param name="url"></param>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Stream> GetAsStreamAsync(string serviceName, string url, Options? options = null, CancellationToken cancellationToken = default);
+
     /// <summary>
     /// Post请求
     /// </summary>
