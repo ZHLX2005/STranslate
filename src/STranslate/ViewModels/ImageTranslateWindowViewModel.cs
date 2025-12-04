@@ -33,6 +33,7 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
     public ImageTranslateWindowViewModel(
         ILogger<ImageTranslateWindowViewModel> logger,
         Settings settings,
+        HotkeySettings hotkeySettings,
         DataProvider dataProvider,
         MainWindowViewModel mainWindowViewModel,
         OcrService ocrService,
@@ -44,6 +45,7 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
     {
         _logger = logger;
         Settings = settings;
+        HotkeySettings = hotkeySettings;
         DataProvider = dataProvider;
         _mainWindowViewModel = mainWindowViewModel;
         _ocrService = ocrService;
@@ -80,6 +82,7 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
     #region Properties
 
     public Settings Settings { get; }
+    public HotkeySettings HotkeySettings { get; }
     public DataProvider DataProvider { get; }
 
     private readonly MainWindowViewModel _mainWindowViewModel;
@@ -269,6 +272,9 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
                 .First()
                 .Navigate(nameof(StandalonePage));
     }
+
+    [RelayCommand]
+    private void SwitchImage() => Settings.IsImTranShowingAnnotated = !Settings.IsImTranShowingAnnotated;
 
     [RelayCommand]
     private void ToggleTextControl() => Settings.IsImTranShowingTextControl = !Settings.IsImTranShowingTextControl;

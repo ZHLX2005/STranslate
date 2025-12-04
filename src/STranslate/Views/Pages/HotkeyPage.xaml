@@ -263,33 +263,33 @@
                     </ui:SettingsExpander.Items>
                 </ui:SettingsExpander>
 
-                <ui:SettingsExpander Header="{DynamicResource Hotkey_OcrWindow}">
+                <ui:SettingsExpander Header="{DynamicResource Hotkey_OcrImTransWindow}">
                     <ui:SettingsExpander.Items>
                         <ui:SettingsCard Header="{DynamicResource Hotkey_ReExecuteOcr}">
                             <control:HotkeyControl
                                 DefaultHotkey="{Binding HotkeySettings.ReExecuteOcrHotkey.Default}"
                                 Hotkey="{Binding HotkeySettings.ReExecuteOcrHotkey.Key}"
-                                Type="OcrWindow"
+                                Type="OcrWindow,ImageTransWindow"
                                 ValidateKeyGesture="False"
                                 WindowTitle="{DynamicResource Hotkey_ReExecuteOcr}" />
-                        </ui:SettingsCard>
-
-                        <ui:SettingsCard Header="{DynamicResource Hotkey_QrCode}">
-                            <control:HotkeyControl
-                                DefaultHotkey="{Binding HotkeySettings.QrCodeHotkey.Default}"
-                                Hotkey="{Binding HotkeySettings.QrCodeHotkey.Key}"
-                                Type="OcrWindow"
-                                ValidateKeyGesture="False"
-                                WindowTitle="{DynamicResource Hotkey_QrCode}" />
                         </ui:SettingsCard>
 
                         <ui:SettingsCard Header="{DynamicResource Hotkey_SwitchImage}">
                             <control:HotkeyControl
                                 DefaultHotkey="{Binding HotkeySettings.SwitchImageHotkey.Default}"
                                 Hotkey="{Binding HotkeySettings.SwitchImageHotkey.Key}"
-                                Type="OcrWindow"
+                                Type="OcrWindow,ImageTransWindow"
                                 ValidateKeyGesture="False"
                                 WindowTitle="{DynamicResource Hotkey_SwitchImage}" />
+                        </ui:SettingsCard>
+
+                        <ui:SettingsCard Description="{DynamicResource Hotkey_QrCodeDescription}" Header="{DynamicResource Hotkey_QrCode}">
+                            <control:HotkeyControl
+                                DefaultHotkey="{Binding HotkeySettings.QrCodeHotkey.Default}"
+                                Hotkey="{Binding HotkeySettings.QrCodeHotkey.Key}"
+                                Type="OcrWindow"
+                                ValidateKeyGesture="False"
+                                WindowTitle="{DynamicResource Hotkey_QrCode}" />
                         </ui:SettingsCard>
                     </ui:SettingsExpander.Items>
                 </ui:SettingsExpander>

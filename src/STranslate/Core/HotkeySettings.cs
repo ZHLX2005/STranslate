@@ -47,7 +47,7 @@ public partial class HotkeySettings : ObservableObject
 
     #endregion
 
-    #region Software Hotkeys - OcrWindow
+    #region Software Hotkeys - OcrWindow / ImageTranslateWindow
 
     public Hotkey ReExecuteOcrHotkey { get; set; } = new("Ctrl + R");
 
@@ -81,10 +81,10 @@ public partial class HotkeySettings : ObservableObject
         new RegisteredHotkeyData(HistoryNavigePreviousHotkey.Key, "Hotkey_HistoryNavigePrevious", HotkeyType.MainWindow, () => HistoryNavigePreviousHotkey.Key = Constant.EmptyHotkey),
         new RegisteredHotkeyData(HistoryNavigeNextHotkey.Key, "Hotkey_HistoryNavigeNext", HotkeyType.MainWindow, () => HistoryNavigeNextHotkey.Key = Constant.EmptyHotkey),
 
-        // OcrWindow
-        new RegisteredHotkeyData(ReExecuteOcrHotkey.Key, "Hotkey_ReExecuteOcr", HotkeyType.OcrWindow, () => ReExecuteOcrHotkey.Key = Constant.EmptyHotkey),
+        // OcrWindow / ImageTranslateWindow
+        new RegisteredHotkeyData(ReExecuteOcrHotkey.Key, "Hotkey_ReExecuteOcr", HotkeyType.OcrWindow | HotkeyType.ImageTransWindow, () => ReExecuteOcrHotkey.Key = Constant.EmptyHotkey),
         new RegisteredHotkeyData(QrCodeHotkey.Key, "Hotkey_QrCode", HotkeyType.OcrWindow, () => QrCodeHotkey.Key = Constant.EmptyHotkey),
-        new RegisteredHotkeyData(SwitchImageHotkey.Key, "Hotkey_SwitchImage", HotkeyType.OcrWindow, () => SwitchImageHotkey.Key = Constant.EmptyHotkey),
+        new RegisteredHotkeyData(SwitchImageHotkey.Key, "Hotkey_SwitchImage", HotkeyType.OcrWindow | HotkeyType.ImageTransWindow, () => SwitchImageHotkey.Key = Constant.EmptyHotkey),
 
         //TODO: Other Window
     ];
@@ -174,7 +174,7 @@ public partial class HotkeySettings : ObservableObject
             [nameof(ToggleTopmostHotkey)] = "Ctrl + Shift + T",
             [nameof(HistoryNavigePreviousHotkey)] = "Ctrl + P",
             [nameof(HistoryNavigeNextHotkey)] = "Ctrl + N",
-            // Software Hotkeys - OcrWindow
+            // Software Hotkeys - OcrWindow / ImageTranslateWindow
             [nameof(ReExecuteOcrHotkey)] = "Ctrl + R",
             [nameof(QrCodeHotkey)] = "Ctrl + Shift + R",
             [nameof(SwitchImageHotkey)] = "Ctrl + OemQuestion",
@@ -461,6 +461,7 @@ public class RegisteredHotkeyData(string hotkey, string resourceKey, HotkeyType 
     public Action? OnRemovedHotkey { get; } = action;
 }
 
+[Flags]
 public enum HotkeyType
 {
     Global = 1,

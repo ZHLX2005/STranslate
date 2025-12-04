@@ -142,7 +142,7 @@ public partial class HotkeyControlDialog : ContentDialog
         ResetUI();
 
         var registeredHotkey = _hotkeySettings.RegisteredHotkeys
-            .Where(x => x.Type.HasFlag(_type))
+            .Where(x => x.Type.HasFlag(_type) || _type.HasFlag(x.Type))
             .Where(x => x.Hotkey != _cacheHotkey.ToString())
             .FirstOrDefault(x => x.Hotkey == hotkey.ToString());
         if (registeredHotkey != null)
