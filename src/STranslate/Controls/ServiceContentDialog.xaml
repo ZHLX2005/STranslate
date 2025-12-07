@@ -96,10 +96,10 @@
                 <DataTemplate DataType="plugin:PluginMetaData">
                     <Border
                         x:Name="SvcCard"
-                        MinWidth="{DynamicResource SettingsCardMinWidth}"
-                        MinHeight="50"
-                        Margin="4"
-                        Padding="16,0"
+                        Width="180"
+                        Height="50"
+                        Margin="0,4"
+                        Padding="10,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Background="{DynamicResource SettingsCardBackground}"
@@ -118,6 +118,7 @@
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
                                 Text="{Binding Name}"
+                                TextTrimming="CharacterEllipsis"
                                 ToolTipService.ToolTip="{Binding Name}" />
                             <control:Badge
                                 Grid.Column="2"
