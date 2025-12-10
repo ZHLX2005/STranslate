@@ -64,6 +64,8 @@ public partial class Settings : ObservableObject
 
     [ObservableProperty] public partial bool CopyAfterTranslationNotAutomatic { get; set; }
 
+    [ObservableProperty] public partial bool CopyAfterOcr { get; set; }
+
     [ObservableProperty] public partial int HttpTimeout { get; set; } = 30;
 
     [ObservableProperty] public partial LangEnum SourceLang { get; set; } = LangEnum.Auto;
@@ -277,6 +279,8 @@ public partial class Settings : ObservableObject
 
     #endregion
 
+    #region Public Methods
+
     public void SetStorage(AppStorage<Settings> storage)
     {
         Storage = storage;
@@ -296,6 +300,51 @@ public partial class Settings : ObservableObject
     }
 
     internal void Save() => Storage?.Save();
+
+    public void Initialize()
+    {
+        if (Storage is null)
+        {
+            throw new InvalidOperationException("Storage is not set. Please call SetStorage() before Initialize().");
+        }
+        ApplyLogLevel();
+        ApplyStartup();
+        ApplyStartMode();
+    }
+
+    public void LazyInitialize()
+    {
+        ApplyFontFamily(true);
+        ApplyLanguage(true);
+        ApplyFontSize();
+        ApplyTheme();
+        ApplyDeactived();
+        ApplyExternalCall();
+    }
+
+    internal ImageFormat GetImageFormat() =>
+        ImageQuality switch
+        {
+            ImageQuality.Low => ImageFormat.Jpeg,
+            ImageQuality.Medium => ImageFormat.Png,
+            ImageQuality.High => ImageFormat.Bmp,
+            _ => ImageFormat.Png,
+        };
+
+    internal BitmapEncoder GetBitmapEncoder()
+    {
+        return ImageQuality switch
+        {
+            ImageQuality.Low => new JpegBitmapEncoder { QualityLevel = 50 },
+            ImageQuality.Medium => new PngBitmapEncoder(),
+            ImageQuality.High => new BmpBitmapEncoder(),
+            _ => new PngBitmapEncoder(),
+        };
+    }
+
+    #endregion
+
+    #region Private Methods
 
     private Timer? _saveTimer;
     private readonly Lock _timerLock = new();
@@ -327,46 +376,52 @@ public partial class Settings : ObservableObject
         }
     }
 
-    internal ImageFormat GetImageFormat() =>
-        ImageQuality switch
-        {
-            ImageQuality.Low => ImageFormat.Jpeg,
-            ImageQuality.Medium => ImageFormat.Png,
-            ImageQuality.High => ImageFormat.Bmp,
-            _ => ImageFormat.Png,
-        };
-
-    internal BitmapEncoder GetBitmapEncoder()
+    private void HandlePropertyChanged(string? propertyName)
     {
-        return ImageQuality switch
+        switch (propertyName)
         {
-            ImageQuality.Low => new JpegBitmapEncoder { QualityLevel = 50 },
-            ImageQuality.Medium => new PngBitmapEncoder(),
-            ImageQuality.High => new BmpBitmapEncoder(),
-            _ => new PngBitmapEncoder(),
-        };
-    }
-
-    public void Initialize()
-    {
-        if (Storage is null)
-        {
-            throw new InvalidOperationException("Storage is not set. Please call SetStorage() before Initialize().");
+            case nameof(AutoStartup):
+                ApplyStartup();
+                break;
+            case nameof(StartMode):
+                ApplyStartMode();
+                break;
+            case nameof(Language):
+                ApplyLanguage();
+                break;
+            case nameof(FontFamily):
+                ApplyFontFamily();
+                break;
+            case nameof(FontSize):
+                ApplyFontSize();
+                break;
+            case nameof(ColorScheme):
+                ApplyTheme();
+                break;
+            case nameof(HideWhenDeactivated):
+                ApplyDeactived();
+                break;
+            case nameof(LogLevel):
+                ApplyLogLevel();
+                break;
+            case nameof(EnableExternalCall):
+            case nameof(ExternalCallPort):
+                ApplyExternalCall();
+                break;
+            case nameof(DisableGlobalHotkeys):
+                Ioc.Default.GetRequiredService<HotkeySettings>().ApplyGlobalHotkeys();
+                break;
+            case nameof(IgnoreHotkeysOnFullscreen):
+                Ioc.Default.GetRequiredService<HotkeySettings>().ApplyIgnoreOnFullScreen();
+                break;
+            default:
+                break;
         }
-        ApplyLogLevel();
-        ApplyStartup();
-        ApplyStartMode();
     }
 
-    public void LazyInitialize()
-    {
-        ApplyFontFamily(true);
-        ApplyLanguage(true);
-        ApplyFontSize();
-        ApplyTheme();
-        ApplyDeactived();
-        ApplyExternalCall();
-    }
+    #endregion
+
+    #region Apply Methods
 
     private void ApplyStartup()
     {
@@ -398,7 +453,7 @@ public partial class Settings : ObservableObject
             if (UACHelper.Exist())
             {
                 UACHelper.Delete();
-            } 
+            }
         }
     }
 
@@ -504,48 +559,7 @@ public partial class Settings : ObservableObject
         }
     }
 
-    private void HandlePropertyChanged(string? propertyName)
-    {
-        switch (propertyName)
-        {
-            case nameof(AutoStartup):
-                ApplyStartup();
-                break;
-            case nameof(StartMode):
-                ApplyStartMode();
-                break;
-            case nameof(Language):
-                ApplyLanguage();
-                break;
-            case nameof(FontFamily):
-                ApplyFontFamily();
-                break;
-            case nameof(FontSize):
-                ApplyFontSize();
-                break;
-            case nameof(ColorScheme):
-                ApplyTheme();
-                break;
-            case nameof(HideWhenDeactivated):
-                ApplyDeactived();
-                break;
-            case nameof(LogLevel):
-                ApplyLogLevel();
-                break;
-            case nameof(EnableExternalCall):
-            case nameof(ExternalCallPort):
-                ApplyExternalCall();
-                break;
-            case nameof(DisableGlobalHotkeys):
-                Ioc.Default.GetRequiredService<HotkeySettings>().ApplyGlobalHotkeys();
-                break;
-            case nameof(IgnoreHotkeysOnFullscreen):
-                Ioc.Default.GetRequiredService<HotkeySettings>().ApplyIgnoreOnFullScreen();
-                break;
-            default:
-                break;
-        }
-    }
+    #endregion
 }
 
 #region Enumeration definition

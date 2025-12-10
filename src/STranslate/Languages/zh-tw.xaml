@@ -87,6 +87,8 @@
     <sys:String x:Key="General_CopyAfterTranslation">翻譯後複製</sys:String>
     <sys:String x:Key="General_CopyAfterTranslationDescription">僅針對「自動執行」的服務生效</sys:String>
     <sys:String x:Key="General_CopyAfterTranslationNotAutomatic">非「自動執行」服務翻譯後複製</sys:String>
+    <sys:String x:Key="General_CopyAfterOcr">OCR後複製</sys:String>
+    <sys:String x:Key="General_CopyAfterOcrDescription">針對所有文字識別場景，識別後自動複製識別結果。</sys:String>
 
     <!--  // Hotkey Page //  -->
     <sys:String x:Key="GlobalHotkeys">全域快速鍵</sys:String>

@@ -26,7 +26,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     private readonly Internationalization _i18n;
     private readonly IAudioPlayer _audioPlayer;
     private readonly IScreenshot _screenshot;
-    private readonly ISnackbar _snakebar;
+    private readonly ISnackbar _snackbar;
     private readonly INotification _notification;
     private double _cacheLeft;
     private double _cacheTop;
@@ -62,7 +62,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         _i18n = i18n;
         _audioPlayer = audioPlayer;
         _screenshot = screenshot;
-        _snakebar = snackbar;
+        _snackbar = snackbar;
         _notification = notification;
         TranslateService = translateService;
         OcrService = ocrService;
@@ -169,7 +169,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 serviceList.ElementAtOrDefault((int)Settings.CopyAfterTranslation - 1);
             if (service == null)
             {
-                _snakebar.ShowWarning(string.Format(_i18n.GetTranslation("CopyServiceNotFound"), Settings.CopyAfterTranslation));
+                _snackbar.ShowWarning(string.Format(_i18n.GetTranslation("CopyServiceNotFound"), Settings.CopyAfterTranslation));
             }
             else
             {
@@ -180,7 +180,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                     if (!string.IsNullOrWhiteSpace(textToCopy))
                     {
                         Utilities.SetText(textToCopy);
-                        _snakebar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
+                        _snackbar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
                     }
                 }
             }
@@ -213,13 +213,13 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (string.IsNullOrWhiteSpace(InputText))
         {
-            _snakebar.ShowWarning(_i18n.GetTranslation("InputContentIsEmpty"));
+            _snackbar.ShowWarning(_i18n.GetTranslation("InputContentIsEmpty"));
             return;
         }
 
         if (!SingleTranslateCommand.CanExecute(service))
         {
-            _snakebar.ShowWarning(_i18n.GetTranslation("WaitingForPreviousExecution"));
+            _snackbar.ShowWarning(_i18n.GetTranslation("WaitingForPreviousExecution"));
             return;
         }
         service.Options?.TemporaryDisplay = true;
@@ -241,7 +241,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             if (Settings.CopyAfterTranslationNotAutomatic)
             {
                 Utilities.SetText(result.Text);
-                _snakebar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
+                _snackbar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
             }
 
             history ??= new HistoryModel
@@ -271,7 +271,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (Settings.CopyAfterTranslationNotAutomatic)
         {
             Utilities.SetText(translateResult.Text);
-            _snakebar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
+            _snackbar.ShowSuccess(string.Format(_i18n.GetTranslation("CopiedToClipboard"), service.DisplayName));
         }
 
         history ??= new HistoryModel
@@ -695,6 +695,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
             if (!result.IsSuccess || string.IsNullOrEmpty(result.Text))
                 return;
 
+            if (Settings.CopyAfterOcr)
+                Utilities.SetText(result.Text);
+
             ExecuteTranslate(Utilities.LinebreakHandler(result.Text, Settings.LineBreakHandleType));
         }
         catch (TaskCanceledException)
@@ -866,9 +869,9 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
         var result = await vocabularySvc.SaveAsync(text, cancellationToken);
         if (result.IsSuccess)
-            _snakebar.ShowSuccess(_i18n.GetTranslation("OperationSuccess"));
+            _snackbar.ShowSuccess(_i18n.GetTranslation("OperationSuccess"));
         else
-            _snakebar.ShowError(_i18n.GetTranslation("OperationFailed"));
+            _snackbar.ShowError(_i18n.GetTranslation("OperationFailed"));
     }
 
     #endregion
@@ -885,7 +888,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (!string.IsNullOrWhiteSpace(result))
             ExecuteTranslate(result);
         else
-            _snakebar.ShowWarning(_i18n.GetTranslation("NavigateFailed"));
+            _snackbar.ShowWarning(_i18n.GetTranslation("NavigateFailed"));
     }
 
     [RelayCommand]
@@ -898,7 +901,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (!string.IsNullOrWhiteSpace(result))
             ExecuteTranslate(result);
         else
-            _snakebar.ShowWarning(_i18n.GetTranslation("NavigateFailed"));
+            _snackbar.ShowWarning(_i18n.GetTranslation("NavigateFailed"));
     }
 
     private List<string> _recentTexts = [];
@@ -1179,7 +1182,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     {
         if (string.IsNullOrEmpty(text)) return;
         Utilities.SetText(text);
-        _snakebar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
+        _snackbar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
     }
 
     [RelayCommand]
@@ -1188,7 +1191,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (string.IsNullOrEmpty(text)) return;
         var pascalCaseText = Utilities.ToPascalCase(text);
         Utilities.SetText(pascalCaseText);
-        _snakebar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
+        _snackbar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
     }
 
     [RelayCommand]
@@ -1197,7 +1200,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (string.IsNullOrEmpty(text)) return;
         var pascalCaseText = Utilities.ToCamelCase(text);
         Utilities.SetText(pascalCaseText);
-        _snakebar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
+        _snackbar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
     }
 
     [RelayCommand]
@@ -1206,7 +1209,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         if (string.IsNullOrEmpty(text)) return;
         var pascalCaseText = Utilities.ToSnakeCase(text);
         Utilities.SetText(pascalCaseText);
-        _snakebar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
+        _snackbar.ShowSuccess(_i18n.GetTranslation("CopySuccess"));
     }
 
     [RelayCommand]

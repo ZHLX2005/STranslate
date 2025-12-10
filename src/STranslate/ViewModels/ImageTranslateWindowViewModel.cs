@@ -176,6 +176,10 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
                 return;
             }
 
+
+            if (Settings.CopyAfterOcr)
+                Utilities.SetText(_lastOcrResult.Text);
+
             IsNoLocationInfoVisible = !Utilities.HasBoxPoints(_lastOcrResult);
 
             // 生成原始OCR标注图像（显示识别边框）

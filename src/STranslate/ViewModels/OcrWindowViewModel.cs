@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using STranslate.Controls;
 using STranslate.Core;
-using STranslate.Services;
 using STranslate.Plugin;
+using STranslate.Services;
 using STranslate.ViewModels.Pages;
 using STranslate.Views;
 using STranslate.Views.Pages;
@@ -160,6 +160,9 @@ public partial class OcrWindowViewModel : ObservableObject, IDisposable
 
             if (!_lastOcrResult.IsSuccess || string.IsNullOrEmpty(_lastOcrResult.Text))
                 return;
+
+            if (Settings.CopyAfterOcr)
+                Utilities.SetText(_lastOcrResult.Text);
 
             IsNoLocationInfoVisible = !Utilities.HasBoxPoints(_lastOcrResult);
 

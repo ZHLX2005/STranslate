@@ -87,6 +87,8 @@
     <sys:String x:Key="General_CopyAfterTranslation">Copy After Translation</sys:String>
     <sys:String x:Key="General_CopyAfterTranslationDescription">Only applies to services with "Automatic"</sys:String>
     <sys:String x:Key="General_CopyAfterTranslationNotAutomatic">Copy after translation for non-"Automatic" services</sys:String>
+    <sys:String x:Key="General_CopyAfterOcr">Copy after OCR</sys:String>
+    <sys:String x:Key="General_CopyAfterOcrDescription">For all text recognition scenarios, automatically copy the recognition result after OCR.</sys:String>
 
     <!--  // Hotkey Page //  -->
     <sys:String x:Key="GlobalHotkeys">Global Hotkeys</sys:String>
