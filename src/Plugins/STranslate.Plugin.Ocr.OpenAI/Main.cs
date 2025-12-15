@@ -69,7 +69,7 @@ public class Main : ObservableObject, IOcrPlugin, ILlm
             uriBuilder.Path = "/v1/chat/completions";
 
         if (Context.ImageQuality == ImageQuality.High)
-            return new OcrResult().Fail($"Not supported, please use low or medium");
+            return new OcrResult().Fail($"Not supported, please use {Context.GetTranslation("ImageQualityLow")} or {Context.GetTranslation("ImageQualityMedium")}");
 
         // 处理图片数据
         var base64Str = Convert.ToBase64String(request.ImageData);
@@ -78,6 +78,7 @@ public class Main : ObservableObject, IOcrPlugin, ILlm
         {
             ImageQuality.Low => "image/jpeg",
             ImageQuality.Medium => "image/png",
+            ImageQuality.High => "image/bmp",
             _ => "image/png"
         };
 
