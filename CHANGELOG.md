@@ -9,6 +9,7 @@
 - 优化：完善外部调用接口 [https://stranslate.zggsong.com/docs/invoke.html](https://stranslate.zggsong.com/docs/invoke.html)
 - 修复：使用 `curl` 或者 `SnipDo` 调用时所有窗口无法弹出至桌面最上层的问题
 - 修复：截图时主窗口仍有残留的问题
+- 修复：点击谷歌浏览器通知触发刚删除的热键对应功能的问题 #559 #578
 
 ## 其他
 
